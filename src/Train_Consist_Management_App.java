@@ -5,25 +5,27 @@ import java.util.*;
 public class Train_Consist_Management_App {
     public static void main(String[] args) {
 
-        System.out.println("=================================");
-        System.out.println("UC3 - Track Unique Bogie IDs");
-        System.out.println("=================================\n");
+        System.out.println("====================================");
+        System.out.println(" UC5 - Preserve Insertion Order of Bogies ");
+        System.out.println("====================================\n");
 
-        Set <String> bogies = new HashSet<>();
 
-        bogies.add("BG101");
-        bogies.add("BG102");
-        bogies.add("BG103");
-        bogies.add("BG104");
+        Set<String> trainConsist = new LinkedHashSet<>();
 
-        bogies.add("BG101");
-        bogies.add("BG102");
-        bogies.add("BG103");
 
-        System.out.println("Bogie IDs after Insertion\n"+bogies);
+        trainConsist.add("Engine");
+        trainConsist.add("Sleeper");
+        trainConsist.add("AC");
+        trainConsist.add("Cargo");
+        trainConsist.add("Guard");
 
-        System.out.println("\nNote:\n Duplicates are automatically ignored by Hash Set");
 
-        System.out.println("\nUC3 uniqueness validation completed...");
+        System.out.println("Final Train Formation\n"+trainConsist);
+
+        System.out.println("\nNote\nLinkedHashSet preserves insertion order and removes duplicates automatically");
+
+
+
+        System.out.println("\nUC5 formation setup completed...");
     }
 }

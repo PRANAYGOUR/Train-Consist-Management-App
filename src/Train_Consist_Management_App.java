@@ -9,27 +9,26 @@ public class Train_Consist_Management_App {
         System.out.println(" UC4 - Maintain Ordered Bogie Consist ");
         System.out.println("====================================\n");
 
-        // Create LinkedList
+        
         List<String> trainConsist = new LinkedList<>();
 
-        // Add initial bogies
+        
         trainConsist.add("Engine");
         trainConsist.add("Sleeper");
         trainConsist.add("AC");
         trainConsist.add("Cargo");
         trainConsist.add("Guard");
 
-        // Display initial consist
         System.out.println("Initial Train Consist:");
         System.out.println(trainConsist);
 
-        // Insert Pantry Car at position 2
+     
         trainConsist.add(2, "Pantry Car");
 
         System.out.println("\nAfter Inserting 'Pantry Car' at position 2:");
         System.out.println(trainConsist);
 
-        // Remove first and last bogie
+       
         ((LinkedList<String>) trainConsist).removeFirst();
         ((LinkedList<String>) trainConsist).removeLast();
 

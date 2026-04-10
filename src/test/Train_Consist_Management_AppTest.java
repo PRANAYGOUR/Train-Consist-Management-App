@@ -1,49 +1,51 @@
-import java.util.regex.*;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Test
-void testRegex_ValidTrainID() {
-    assertTrue("TRN-1234".matches("TRN-\\d{4}"));
-}
+public class Train_Consist_Management_AppTest {
 
-@Test
-void testRegex_InvalidTrainIDFormat() {
-    assertFalse("TRAIN12".matches("TRN-\\d{4}"));
-    assertFalse("TRN12A".matches("TRN-\\d{4}"));
-    assertFalse("1234-TRN".matches("TRN-\\d{4}"));
-}
+    static class GoodsBogie {
+        String type;
+        String cargo;
 
-@Test
-void testRegex_ValidCargoCode() {
-    assertTrue("PET-AB".matches("PET-[A-Z]{2}"));
-}
+        GoodsBogie(String type, String cargo) {
+            this.type = type;
+            this.cargo = cargo;
+        }
+    }
 
-@Test
-void testRegex_InvalidCargoCodeFormat() {
-    assertFalse("PET-ab".matches("PET-[A-Z]{2}"));
-    assertFalse("PET123".matches("PET-[A-Z]{2}"));
-    assertFalse("AB-PET".matches("PET-[A-Z]{2}"));
-}
+    @Test
+    void testSafety_AllBogiesValid() {
+        List<GoodsBogie> bogies = Arrays.asList(
+                new GoodsBogie("Cylindrical", "Petroleum"),
+                new GoodsBogie("Open", "Coal")
+        );
 
-@Test
-void testRegex_TrainIDDigitLengthValidation() {
-    assertFalse("TRN-123".matches("TRN-\\d{4}"));
-    assertFalse("TRN-12345".matches("TRN-\\d{4}"));
-}
+        boolean result = bogies.stream()
+                .allMatch(b -> !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum"));
 
-@Test
-void testRegex_CargoCodeUppercaseValidation() {
-    assertFalse("PET-Ab".matches("PET-[A-Z]{2}"));
-}
+        assertTrue(result);
+    }
 
-@Test
-void testRegex_EmptyInputHandling() {
-    assertFalse("".matches("TRN-\\d{4}"));
-    assertFalse("".matches("PET-[A-Z]{2}"));
-}
+    @Test
+    void testSafety_CylindricalWithInvalidCargo() {
+        List<GoodsBogie> bogies = Arrays.asList(
+                new GoodsBogie("Cylindrical", "Coal")
+        );
 
-@Test
-void testRegex_ExactPatternMatch() {
-    assertFalse("TRN-1234XYZ".matches("TRN-\\d{4}"));
+        boolean result = bogies.stream()
+                .allMatch(b -> !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum"));
+
+        assertFalse(result);
+    }
+
+    @Test
+    void testSafety_EmptyBogieList() {
+        List<GoodsBogie> bogies = new ArrayList<>();
+
+        boolean result = bogies.stream()
+                .allMatch(b -> !b.type.equals("Cylindrical") || b.cargo.equals("Petroleum"));
+
+        assertTrue(result);
+    }
 }

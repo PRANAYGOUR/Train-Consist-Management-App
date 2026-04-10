@@ -5,39 +5,40 @@ public class Train_Consist_Management_App {
     public static void main(String[] args) {
 
         System.out.println("==============================================");
-        System.out.println(" UC19 - Binary Search ");
+        System.out.println(" UC20 - Exception Handling in Search ");
         System.out.println("==============================================\n");
 
-        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
+        String[] bogieIds = {}; // empty case
 
-        String key = "BG309";
+        String key = "BG101";
 
-        boolean found = binarySearch(bogieIds, key);
+        try {
+            boolean result = searchWithValidation(bogieIds, key);
 
-        if (found) {
-            System.out.println("Bogie Found: " + key);
-        } else {
-            System.out.println("Bogie Not Found: " + key);
+            if (result) {
+                System.out.println("Bogie Found: " + key);
+            } else {
+                System.out.println("Bogie Not Found: " + key);
+            }
+
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
 
-        System.out.println("\nUC19 completed...");
+        System.out.println("\nUC20 completed...");
     }
 
-    // 🔥 Binary Search
-    static boolean binarySearch(String[] arr, String key) {
+    // 🔥 Fail-fast validation
+    static boolean searchWithValidation(String[] arr, String key) {
 
-        Arrays.sort(arr); // ensure sorted
+        if (arr.length == 0) {
+            throw new IllegalStateException("No bogies available for search!");
+        }
 
-        int low = 0, high = arr.length - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-
-            int cmp = arr[mid].compareTo(key);
-
-            if (cmp == 0) return true;
-            else if (cmp < 0) low = mid + 1;
-            else high = mid - 1;
+        for (String id : arr) {
+            if (id.equals(key)) {
+                return true;
+            }
         }
 
         return false;

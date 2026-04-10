@@ -5,31 +5,41 @@ public class Train_Consist_Management_App {
     public static void main(String[] args) {
 
         System.out.println("==============================================");
-        System.out.println(" UC18 - Linear Search (Bogie ID) ");
+        System.out.println(" UC19 - Binary Search ");
         System.out.println("==============================================\n");
 
-        // Bogie IDs
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
 
-        String searchKey = "BG309"; // change to test
+        String key = "BG309";
 
-        boolean found = false;
+        boolean found = binarySearch(bogieIds, key);
 
-        // 🔥 Linear Search
-        for (String id : bogieIds) {
-            if (id.equals(searchKey)) {
-                found = true;
-                break; // stop early
-            }
-        }
-
-        // Output
         if (found) {
-            System.out.println("Bogie Found: " + searchKey);
+            System.out.println("Bogie Found: " + key);
         } else {
-            System.out.println("Bogie Not Found: " + searchKey);
+            System.out.println("Bogie Not Found: " + key);
         }
 
-        System.out.println("\nUC18 search completed...");
+        System.out.println("\nUC19 completed...");
+    }
+
+    // 🔥 Binary Search
+    static boolean binarySearch(String[] arr, String key) {
+
+        Arrays.sort(arr); // ensure sorted
+
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            int cmp = arr[mid].compareTo(key);
+
+            if (cmp == 0) return true;
+            else if (cmp < 0) low = mid + 1;
+            else high = mid - 1;
+        }
+
+        return false;
     }
 }

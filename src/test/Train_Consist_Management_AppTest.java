@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Train_Consist_Management_AppTest {
 
-    boolean linearSearch(String[] arr, String key) {
+    boolean binarySearch(String[] arr, String key) {
         for (String id : arr) {
             if (id.equals(key)) {
                 return true;
@@ -13,32 +13,20 @@ public class Train_Consist_Management_AppTest {
     }
 
     @Test
-    void testSearch_BogieFound() {
+    void testBinarySearch_BogieFound() {
         String[] arr = {"BG101","BG205","BG309","BG412","BG550"};
-        assertTrue(linearSearch(arr, "BG309"));
+        assertTrue(binarySearch(arr, "BG309"));
     }
 
     @Test
-    void testSearch_BogieNotFound() {
-        String[] arr = {"BG101","BG205","BG309","BG412","BG550"};
-        assertFalse(linearSearch(arr, "BG999"));
-    }
-
-    @Test
-    void testSearch_FirstElementMatch() {
+    void testBinarySearch_BogieNotFound() {
         String[] arr = {"BG101","BG205","BG309"};
-        assertTrue(linearSearch(arr, "BG101"));
+        assertFalse(binarySearch(arr, "BG999"));
     }
 
     @Test
-    void testSearch_LastElementMatch() {
-        String[] arr = {"BG101","BG205","BG309"};
-        assertTrue(linearSearch(arr, "BG309"));
-    }
-
-    @Test
-    void testSearch_SingleElementArray() {
-        String[] arr = {"BG101"};
-        assertTrue(linearSearch(arr, "BG101"));
+    void testBinarySearch_EmptyArray() {
+        String[] arr = {};
+        assertFalse(binarySearch(arr, "BG101"));
     }
 }

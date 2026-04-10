@@ -5,27 +5,31 @@ public class Train_Consist_Management_App {
     public static void main(String[] args) {
 
         System.out.println("==============================================");
-        System.out.println(" UC17 - Sort Bogie Names (Arrays.sort) ");
+        System.out.println(" UC18 - Linear Search (Bogie ID) ");
         System.out.println("==============================================\n");
 
-        // Bogie names
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General",
-                "Luxury"
-        };
+        // Bogie IDs
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        System.out.println("Before Sorting:");
-        System.out.println(Arrays.toString(bogieNames));
+        String searchKey = "BG309"; // change to test
 
-        // 🔥 Built-in sorting
-        Arrays.sort(bogieNames);
+        boolean found = false;
 
-        System.out.println("\nAfter Sorting:");
-        System.out.println(Arrays.toString(bogieNames));
+        // 🔥 Linear Search
+        for (String id : bogieIds) {
+            if (id.equals(searchKey)) {
+                found = true;
+                break; // stop early
+            }
+        }
 
-        System.out.println("\nUC17 sorting completed...");
+        // Output
+        if (found) {
+            System.out.println("Bogie Found: " + searchKey);
+        } else {
+            System.out.println("Bogie Not Found: " + searchKey);
+        }
+
+        System.out.println("\nUC18 search completed...");
     }
 }

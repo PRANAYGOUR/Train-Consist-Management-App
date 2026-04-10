@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Train_Consist_Management_AppTest {
 
-
     static class Bogie {
         String name;
         int capacity;
@@ -19,40 +18,44 @@ class Train_Consist_Management_AppTest {
     }
 
     @Test
-    void testFilter_CapacityGreaterThan60() {
+    void testGrouping_BogiesGroupedByType() {
+
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Sleeper", 72),
+                new Bogie("Sleeper", 70),
+                new Bogie("AC Chair", 56)
+        );
+
+        Map<String, List<Bogie>> grouped = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
+
+        assertTrue(grouped.containsKey("Sleeper"));
+        assertEquals(2, grouped.get("Sleeper").size());
+    }
+
+    @Test
+    void testGrouping_EmptyList() {
+
+        List<Bogie> bogies = new ArrayList<>();
+
+        Map<String, List<Bogie>> grouped = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
+
+        assertTrue(grouped.isEmpty());
+    }
+
+    @Test
+    void testGrouping_DifferentTypes() {
 
         List<Bogie> bogies = Arrays.asList(
                 new Bogie("Sleeper", 72),
                 new Bogie("AC Chair", 56),
-                new Bogie("First Class", 24),
-                new Bogie("General", 90)
+                new Bogie("First Class", 24)
         );
 
-        // Apply filter (same logic as UC8)
-        List<Bogie> result = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
+        Map<String, List<Bogie>> grouped = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
 
-        // Check size
-        assertEquals(2, result.size());
-
-        // Check values
-        assertTrue(result.stream().allMatch(b -> b.capacity > 60));
-    }
-
-    @Test
-    void testFilter_NoMatch() {
-
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Low1", 20),
-                new Bogie("Low2", 30)
-        );
-
-        List<Bogie> result = bogies.stream()
-                .filter(b -> b.capacity > 60)
-                .collect(Collectors.toList());
-
-        // Should be empty
-        assertTrue(result.isEmpty());
+        assertEquals(3, grouped.size());
     }
 }
